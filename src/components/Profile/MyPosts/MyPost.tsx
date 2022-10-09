@@ -6,7 +6,7 @@ export type PropsType = {
   posts:PropsArrayType[]
 }
 
-type PropsArrayType = {
+export type PropsArrayType = {
   id: number
   message: string
   likescount: number
@@ -22,15 +22,24 @@ export const MyPost = (props:PropsType) => {
 
   let postsElement = props.posts.map(p => <div key={p.id}><Post message={p.message} likescount={p.likescount}/></div> )
 
+  let newPostElement = React.createRef<HTMLTextAreaElement>()
+
+  let addPost = () => {
+    if (newPostElement.current){
+      let text = newPostElement.current?.value
+    }
+  }
+
+
   return (
     <div className={s.postBlock}>
       <div>
         <h3>My Posts</h3>
         <div>
-          <textarea></textarea>
+          <textarea ref={newPostElement}></textarea>
         </div>
         <div>
-          <button>add</button>
+          <button onClick={addPost}>add</button>
         </div>
       </div>
       <div className={s.posts}>

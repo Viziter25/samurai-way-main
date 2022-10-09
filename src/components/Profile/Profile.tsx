@@ -3,18 +3,27 @@ import React from 'react';
 import {MyPost} from './MyPosts/MyPost';
 import {ProfileInfo} from './ProfileInfo/ProfileInfo';
 
-export const Profile = () => {
+type StatePropsType = {
+  state:PropsType
+}
 
-  let posts = [
-    {id: 1, message: 'hi', likescount: 1},
-    {id: 2, message: 'Bye', likescount: 41},
-    {id: 3, message: 'asdsad', likescount: 21},
-  ]
+export type PropsType = {
+  posts:PropsArrayType[]
+}
+
+type PropsArrayType = {
+  id: number
+  message: string
+  likescount: number
+}
+
+export const Profile = (props:StatePropsType) => {
+
 
   return (
     <div className={s.content}>
       <ProfileInfo />
-      <MyPost posts={posts}/>
+      <MyPost posts={props.state.posts} />
     </div>
 
   )
