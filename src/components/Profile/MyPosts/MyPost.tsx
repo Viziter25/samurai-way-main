@@ -1,32 +1,23 @@
 import s from './MyPosts.module.css';
 import React from 'react';
 import {Post} from './Post/Post';
+import {ProfilePageType, StateType} from '../../../redux/state';
 
-export type PropsType = {
-  posts:PropsArrayType[]
-}
 
-export type PropsArrayType = {
-  id: number
-  message: string
-  likescount: number
-}
 
-export const MyPost = (props:PropsType) => {
+export const MyPost = (props:StateType) => {
 
-  // let posts = [
-  //   {id: 1, message: 'hi', likescount: 1},
-  //   {id: 2, message: 'Bye', likescount: 41},
-  //   {id: 3, message: 'asdsad', likescount: 21},
-  // ]
 
-  let postsElement = props.posts.map(p => <div key={p.id}><Post message={p.message} likescount={p.likescount}/></div> )
+  let postsElement = props.state.profilePage.posts.map(p => <div key={p.id}><Post message={p.message} likescount={p.likescount}/></div> )
 
   let newPostElement = React.createRef<HTMLTextAreaElement>()
 
   let addPost = () => {
     if (newPostElement.current){
-      let text = newPostElement.current?.value
+      let text = (newPostElement.current?.value)
+      props.addPost(text)
+
+      newPostElement.current.value=' '
     }
   }
 

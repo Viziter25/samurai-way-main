@@ -1,46 +1,44 @@
+import {rerenderEntiretree} from '../render';
 
 
-
-export type AppPropsType = {
-  state:AppPropsPageType
-}
-export  type AppPropsPageType = {
-  profilePage:AppPropsItemType
-  messagePage:DialogsPropsType
+type MessageType = {
+  id: number,
+  message: string
 }
 
-export type AppPropsItemType = {
-  posts:PropsArrayType[]
-}
-
-/////////////////////////////
-
-export type StatePropsType = {
-  state:DialogsPropsType
-}
-
-export type DialogsPropsType = {
-  dialogs: DialogType[]
-  messages: MessagesType[]
-}
-
-export type DialogType = {
+type DialogType = {
   id: number,
   name: string
 }
 
-export type MessagesType = {
-  id: number,
-  message: string
-}
-type PropsArrayType = {
+export type PostType = {
   id: number
   message: string
   likescount: number
+
 }
 
+export type ProfilePageType = {
+  posts: PostType[]
 
-export let state = {
+}
+
+export type DialogPageType = {
+  dialogs: DialogType[]
+  messages: MessageType[]
+}
+
+export type RootStateType = {
+  profilePage: ProfilePageType
+  messagePage: DialogPageType
+}
+
+export type StateType = {
+  state: RootStateType
+  addPost: (postMessage: string) => void
+}
+
+export let state: RootStateType = {
   profilePage: {
     posts: [
       {id: 1, message: 'hi', likescount: 1},
@@ -49,7 +47,7 @@ export let state = {
     ]
   },
   messagePage: {
-    dialogs : [
+    dialogs: [
       {id: 1, name: 'Dima'},
       {id: 2, name: 'Vasa'},
       {id: 3, name: 'Sveta'},
@@ -65,10 +63,13 @@ export let state = {
 }
 
 export let addPost = (postMessage: string) => {
-  let newPost:PropsArrayType = {
+  debugger
+  let newPost: PostType = {
     id: 5,
     message: postMessage,
     likescount: 0,
   }
   state.profilePage.posts.push(newPost)
+  rerenderEntiretree(state)
+
 }
