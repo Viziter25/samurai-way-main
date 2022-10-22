@@ -11,7 +11,7 @@ export const Profile = (props:StateType) => {
   return (
     <div className={s.content}>
       <ProfileInfo />
-      <MyPost state={props.state} addPost={props.addPost}/>
+      <MyPost state={props.state} addPost={props.addPost} updateNewPostText={props.updateNewPostText}/>
     </div>
 
   )

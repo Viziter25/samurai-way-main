@@ -1,4 +1,6 @@
-import {rerenderEntiretree} from '../render';
+let rerenderEntiretree = (s:RootStateType) => {
+
+}
 
 
 type MessageType = {
@@ -20,7 +22,7 @@ export type PostType = {
 
 export type ProfilePageType = {
   posts: PostType[]
-
+  newPostText:string
 }
 
 export type DialogPageType = {
@@ -36,6 +38,8 @@ export type RootStateType = {
 export type StateType = {
   state: RootStateType
   addPost: (postMessage: string) => void
+  updateNewPostText: (newText:string )=>void
+
 }
 
 export let state: RootStateType = {
@@ -44,7 +48,8 @@ export let state: RootStateType = {
       {id: 1, message: 'hi', likescount: 1},
       {id: 2, message: 'Bye', likescount: 41},
       {id: 3, message: 'asdsad', likescount: 21},
-    ]
+    ],
+    newPostText :'Hello'
   },
   messagePage: {
     dialogs: [
@@ -66,10 +71,20 @@ export let addPost = (postMessage: string) => {
   debugger
   let newPost: PostType = {
     id: 5,
-    message: postMessage,
+    message: state.profilePage.newPostText,
     likescount: 0,
   }
   state.profilePage.posts.push(newPost)
+  state.profilePage.newPostText=' '
   rerenderEntiretree(state)
 
+}
+
+export let updateNewPostText = (newText:string) => {
+  state.profilePage.newPostText = newText
+  rerenderEntiretree(state)
+}
+
+export const subscribe = (observer:(state:RootStateType)=>void) => {
+  rerenderEntiretree = observer
 }
